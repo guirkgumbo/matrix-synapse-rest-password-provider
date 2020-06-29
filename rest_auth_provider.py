@@ -44,10 +44,14 @@ class RestAuthProvider(object):
         logger.info('Enforce lowercase username during registration: %s', self.regLower)
 
     @defer.inlineCallbacks
-    def check_password(self, user_id, password):
+    def check_password(self, user_id, authToken):
         logger.info("Got password check for " + user_id)
-        data = {'user': {'id': user_id, 'password': password}}
-        r = requests.post(self.endpoint + '/_matrix-internal/identity/v1/check_credentials', json=data)
+        logger.info("Got authToken " + authToken)
+        bearerSting = 'Bearer' + authToken
+        headers = {"Authorization": bearerSting}
+        data = {}
+        # data = {'user': {'id': user_id, 'password': password}}
+        r = requests.post(self.endpoint + '/_matrix-internal/identity/v1/check_credentials', json=data, headers=headers)
         r.raise_for_status()
         r = r.json()
         if not r["auth"]:
