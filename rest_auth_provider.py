@@ -49,7 +49,7 @@ class RestAuthProvider(object):
         # SO PLEASE TREAT THE PASSWORD VARIABLE AS AN AUTHTOKEN CAUSE THATS WHAT IT IS
         logger.info("Got password check for " + user_id)
         logger.info("Got authToken " + password)
-        bearerSting = 'Bearer' + password
+        bearerSting = 'Bearer ' + password
         headers = {"Authorization": bearerSting}
         data = {}
         # data = {'user': {'id': user_id, 'password': password}}
