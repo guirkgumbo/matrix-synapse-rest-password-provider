@@ -44,10 +44,12 @@ class RestAuthProvider(object):
         logger.info('Enforce lowercase username during registration: %s', self.regLower)
 
     @defer.inlineCallbacks
-    def check_password(self, user_id, authToken):
+    def check_password(self, user_id, password):
+        # Not gonna rewrite the wheel here but in place of the password parameter will actually be an auth token
+        # SO PLEASE TREAT THE PASSWORD VARIABLE AS AN AUTHTOKEN CAUSE THATS WHAT IT IS
         logger.info("Got password check for " + user_id)
-        logger.info("Got authToken " + authToken)
-        bearerSting = 'Bearer' + authToken
+        logger.info("Got authToken " + password)
+        bearerSting = 'Bearer' + password
         headers = {"Authorization": bearerSting}
         data = {}
         # data = {'user': {'id': user_id, 'password': password}}
